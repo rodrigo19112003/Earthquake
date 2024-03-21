@@ -1,19 +1,27 @@
 package com.example.earthquakeapp;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "earthquakes")
 public class Earthquake {
+
+    @PrimaryKey
+    @NonNull
     private String id;
     private String place;
     private double magnitude;
     private long time;
-    private double loingitude;
+    private double longitude;
     private double latitude;
 
-    public Earthquake(String id, String place, double magnitude, long time, double loingitude, double latitude) {
+    public Earthquake(String id, String place, double magnitude, long time, double longitude, double latitude) {
         this.id = id;
         this.place = place;
         this.magnitude = magnitude;
         this.time = time;
-        this.loingitude = loingitude;
+        this.longitude = longitude;
         this.latitude = latitude;
     }
 
@@ -49,12 +57,12 @@ public class Earthquake {
         this.time = time;
     }
 
-    public double getLoingitude() {
-        return loingitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLoingitude(double loingitude) {
-        this.loingitude = loingitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public double getLatitude() {
