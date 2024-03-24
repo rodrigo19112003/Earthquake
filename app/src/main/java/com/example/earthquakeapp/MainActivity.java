@@ -3,6 +3,8 @@ package com.example.earthquakeapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -22,14 +24,21 @@ public class MainActivity extends AppCompatActivity {
         binding.eqRecycler.setLayoutManager(new LinearLayoutManager(this));
         EqAdapter adapter = new EqAdapter();
         adapter.setOnItemClickListener(earthquake ->
-                Toast.makeText(MainActivity.this,
-                        earthquake.getPlace(),
-                        Toast.LENGTH_SHORT).show());
+                openDeatilActivity(earthquake.getId(), earthquake.getPlace(), earthquake.getMagnitude(),
+                        earthquake.getTime(), earthquake.getLongitude(), earthquake.getLatitude()));
         binding.eqRecycler.setAdapter(adapter);
         viewModel.downloadEarthquakes();
         viewModel.getEqList().observe(this,eqList ->{
             adapter.submitList(eqList);
         });
 
+    }
+
+    private void openDeatilActivity(String id, String place, double magnitude, long time,
+                                    double longitude, double latitude){
+        Earthquake earthquake = new Earthquake(id, place, magnitude, time, longitude, latitude);
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.EARTHQUAKE_KEY, earthquake);
+        startActivity(intent);
     }
 }
